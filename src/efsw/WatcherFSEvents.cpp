@@ -79,7 +79,10 @@ void WatcherFSEvents::handleAddModDel( const Uint32& flags, const std::string& p
 		}
 	}
 
-	if ( flags & efswFSEventsModified ) {
+	// Currently, Modifying file content led to notify twice (#186)
+	// So now I've only handleed efswFSEventStreamEventFlagItemModified flag.
+	if ( flags & efswFSEventStreamEventFlagItemModified ) { 
+	// if ( flags & efswFSEventsModified ) {
 		sendFileAction( ID, dirPath, filePath, Actions::Modified );
 	}
 
